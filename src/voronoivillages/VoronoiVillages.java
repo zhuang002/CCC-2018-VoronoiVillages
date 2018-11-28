@@ -5,6 +5,7 @@
  */
 package voronoivillages;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -16,52 +17,32 @@ public class VoronoiVillages {
     /**
      * @param args the command line arguments
      */
-    static int[] villages=new int[100];
-    static int noOfVillages=0;
-    static double minSize=0;
+    static int[] villages;
     public static void main(String[] args) {
         // TODO code application logic here
         readInput();
-        minSize=neighbourSize(1);
-        for (int i=1;i<noOfVillages-1;i++) {
+        double minSize=Double.MAX_VALUE;
+        for (int i=1;i<villages.length-1;i++) {
             double newSize=neighbourSize(i);
             if (minSize>newSize)
                 minSize=newSize;
         }
-        System.out.format("%.1f",minSize);
+        System.out.printf("%.1f",minSize);
     }
 
     private static void readInput() {
         Scanner sc=new Scanner(System.in);
-        noOfVillages = sc.nextInt();
+        int noOfVillages = sc.nextInt();
+        villages=new int[noOfVillages];
 
         for (int i=0;i<noOfVillages;i++) {
             int position=sc.nextInt();
-            addVillage(i,position);
+            villages[i]=position;
         }
+        Arrays.sort(villages);
     }
 
     private static double neighbourSize(int i) {
         return (((double)villages[i+1]-(double)villages[i-1])/2);
-    }
-
-    private static void addVillage(int total, int position) {
-        if (total==0) {
-            villages[total]=position;
-            return;
-        }
-        for (int i=0;i<total;i++) {
-            if (position<villages[i]) {
-                insertVillage(i,position,total);
-                return;
-            }
-        }
-    }
-
-    private static void insertVillage(int index,int position, int total) {
-        for (int i=total;i>index;i--) {
-            villages[i]=villages[i-1];
-        }
-        villages[index]=position;
     }
 }
