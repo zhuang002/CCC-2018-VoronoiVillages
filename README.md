@@ -5,8 +5,8 @@ Problem URL:
     
 Test Status:
     
-    Not ready
+    Fully passed
     
 Branches:
 
-    master: Not ready. Java. Netbeans Project.
+    master: Fully passed. Java. Netbeans Project.
